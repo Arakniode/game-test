@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+// HELLO EST-CE QUE CA MARCHE
 namespace Game1
 {
     /// <summary>
@@ -22,7 +23,7 @@ namespace Game1
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
         /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
+        /// and initialize them as well. 
         /// </summary>
         protected override void Initialize()
         {
