@@ -12,6 +12,14 @@ namespace Game1.Classes {
     class Pirhana {
 
         private Texture2D texture;
+        public Vector2 pos;
+        public Vector2 vel;
+        private float speed = 0.1f;
+
+        public Pirhana() {
+            this.pos = Vector2.Zero;
+            this.vel = Vector2.Zero;
+        }
 
         public void LoadContent(ContentManager content) {
             texture = content.Load<Texture2D>("pirhana");
@@ -19,10 +27,38 @@ namespace Game1.Classes {
 
         public void Update(GameTime gt) {
 
+            // keyboard management
+            KeyboardState kstate = Keyboard.GetState();
+            Keys[] keys = kstate.GetPressedKeys();
+
+            if (keys.Contains(Keys.Up) && !keys.Contains(Keys.Down))
+                this.vel.Y = -speed * (float)gt.ElapsedGameTime.TotalMilliseconds;
+            else this.vel.Y = 0f;
+
+            if (keys.Contains(Keys.Down) && !keys.Contains(Keys.Up))
+                this.vel.Y = speed * (float)gt.ElapsedGameTime.TotalMilliseconds;
+            else this.vel.Y = 0f;
+
+            if (keys.Contains(Keys.Left) && !keys.Contains(Keys.Right))
+                this.vel.X = -speed * (float)gt.ElapsedGameTime.TotalMilliseconds;
+            else this.vel.X = 0f;
+
+            if (keys.Contains(Keys.Right) && !keys.Contains(Keys.Left))
+                this.vel.X = speed * (float)gt.ElapsedGameTime.TotalMilliseconds;
+            else this.vel.X = 0f;
+
+            // normalize vector for diagonal movement
+            if(this.vel.Length() != 0) {
+                this.vel.X /= this.vel.Length();
+                this.vel.Y /= this.vel.Length();
+            }
+
+            // move (apparently you can override operators in C# :D)
+            this.pos += this.vel;
         }
 
         public void Draw(SpriteBatch sb) {
-            sb.Draw(texture, new Vector2(0, 0), Color.White);
+            sb.Draw(texture, pos, Color.White);
         }
     }
 }

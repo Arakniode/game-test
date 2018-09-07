@@ -12,7 +12,6 @@ namespace Game1
         float renderTargetScale = 4f;
 
         SpriteBatch spriteBatch;
-        Texture2D pirhanaTexture;
         Pirhana pirhana;
 
         public TestGame()
@@ -46,11 +45,14 @@ namespace Game1
         
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            // check if the player exits the game
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            base.Update(gameTime);
             pirhana.Update(gameTime);
+
+            //base.Update(gameTime);
+            
         }
         
         protected override void Draw(GameTime gameTime)
